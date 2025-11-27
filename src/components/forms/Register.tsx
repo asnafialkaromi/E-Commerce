@@ -22,26 +22,7 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "../ui/input-group";
-
-const RegisterSchema = z
-  .object({
-    username: z.string().min(3, "Username is required"),
-    email: z.email("Invalid email"),
-    firstName: z.string().min(1, "First name is required"),
-    lastName: z.string().min(1, "Last name is required"),
-    gender: z.enum(["male", "female"], { message: "Select a gender" }),
-    phone: z.string().min(8, "Phone number is required"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-    confirmPassword: z
-      .string()
-      .min(6, "Password must be at least 6 characters"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
-
-type RegisterValues = z.infer<typeof RegisterSchema>;
+import { RegisterSchema, type RegisterValues } from "@/schemas/auth-schema";
 
 export default function Register() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -160,7 +141,10 @@ export default function Register() {
               <FieldLabel>Gender</FieldLabel>
 
               <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <SelectTrigger>
+                <SelectTrigger
+                  data-invalid={fieldState.invalid}
+                  className="data-[invalid=true]:border-red-500 data-[invalid=true]:focus:ring-red-500"
+                >
                   <SelectValue placeholder="Select a gender" />
                 </SelectTrigger>
                 <SelectContent>

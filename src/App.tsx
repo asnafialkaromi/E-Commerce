@@ -4,10 +4,12 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import MainLayout from "./components/layouts/MainLayout";
 import Auth from "./pages/Auth";
+import { Toaster } from "sonner";
 
 function App() {
   return (
     <div>
+      <Toaster />
       <Routes>
         {/* Without layout routes */}
         <Route path="/login" element={<Auth />} />
