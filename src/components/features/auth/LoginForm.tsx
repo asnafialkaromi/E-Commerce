@@ -1,21 +1,21 @@
 import React from "react";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { Input } from "../../ui/input";
+import { Button } from "../../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod/dist/zod.js";
 import { Controller, useForm } from "react-hook-form";
-import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
+import { Field, FieldError, FieldGroup, FieldLabel } from "../../ui/field";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "../ui/input-group";
+} from "../../ui/input-group";
 import { Eye, EyeOff } from "lucide-react";
-import { LoginSchema, type LoginValues } from "@/schemas/auth-schema";
-import { AuthService } from "@/services/auth-service";
+import { LoginSchema, type LoginValues } from "@/schemas/authSchema";
 import { showToast } from "@/lib/toastHelper";
-import { Spinner } from "../ui/spinner";
+import { Spinner } from "../../ui/spinner";
 import { useNavigate } from "react-router";
+import { authService } from "@/services/authService";
 
 export default function Login() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -33,7 +33,7 @@ export default function Login() {
   async function onSubmit(values: LoginValues) {
     try {
       setIsLoading(true);
-      const res = await AuthService.login(values);
+      const res = await authService.login(values);
 
       showToast("success", "Login successful!");
 
