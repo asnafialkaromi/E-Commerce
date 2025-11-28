@@ -1,5 +1,5 @@
-import Login from "@/components/forms/Login";
-import Register from "@/components/forms/Register";
+import LoginForm from "@/components/features/auth/LoginForm";
+import RegisterForm from "@/components/features/auth/RegisterForm";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -36,7 +36,7 @@ export default function Auth() {
                   </a>
                 </AlertDescription>
               </Alert>
-              <Login />
+              <LoginForm />
             </TabsContent>
 
             <TabsContent value="register" className="mt-4">
@@ -49,7 +49,7 @@ export default function Auth() {
                 </AlertDescription>
               </Alert>
 
-              <Register />
+              <RegisterForm />
             </TabsContent>
           </Tabs>
         </CardContent>
