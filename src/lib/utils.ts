@@ -5,37 +5,41 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function getPageNumbers(current: number, total: number) {
-  const pages: (number | "...")[] = [];
+export const getPaginationRange = (page: number, totalPages: number) => {
+  const delta = 2;
+  const range: (number | string)[] = [];
 
-  if (total <= 7) {
-    // Show all
-    return Array.from({ length: total }, (_, i) => i);
+  // Always show first page
+  range.push(0);
+
+  // Pages around current page
+  for (
+    let i = Math.max(1, page - delta);
+    i <= Math.min(totalPages - 2, page + delta);
+    i++
+  ) {
+    range.push(i);
   }
 
-  // Always show first
-  pages.push(0);
-
-  // Left ellipsis
-  if (current > 2) {
-    pages.push("...");
+  // Always show last page
+  if (totalPages > 1) {
+    range.push(totalPages - 1);
   }
 
-  // Middle pages
-  const start = Math.max(1, current - 1);
-  const end = Math.min(total - 2, current + 1);
+  // Insert ellipsis correctly
+  const rangeWithDots: (number | string)[] = [];
+  let prevPage: number | null = null;
 
-  for (let i = start; i <= end; i++) {
-    pages.push(i);
+  for (const p of range) {
+    if (typeof p !== "number") continue;
+
+    if (prevPage !== null && p - prevPage > 1) {
+      rangeWithDots.push("ellipsis");
+    }
+
+    rangeWithDots.push(p);
+    prevPage = p;
   }
 
-  // Right ellipsis
-  if (current < total - 3) {
-    pages.push("...");
-  }
-
-  // Always show last
-  pages.push(total - 1);
-
-  return pages;
-}
+  return rangeWithDots;
+};
