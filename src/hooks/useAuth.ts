@@ -5,6 +5,11 @@ import type { User } from "@/types/userType"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "react-router"
 
+interface LoginCredentials {
+    username: string
+    password: string
+}
+
 // Get current authenticated user
 export function useCurrentUser() {
     return useQuery({
@@ -21,7 +26,7 @@ export function useLogin() {
     const navigate = useNavigate()
 
     return useMutation({
-        mutationFn: (credentials: User) => authService.login(credentials),
+        mutationFn: (credentials: LoginCredentials) => authService.login(credentials),
         onSuccess: (data) => {
             // Store token
             localStorage.setItem("token", data.accessToken)

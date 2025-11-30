@@ -53,3 +53,9 @@ export interface ProductsResponse {
     skip: number;
     limit: number;
 }
+
+export interface ProductCategory {
+    slug: string;
+    name: string;
+    url: string;
+}

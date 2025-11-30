@@ -1,16 +1,27 @@
-import { get } from "http";
 import apiClient from "../lib/api/apiClient";
-import type { ProductsResponse } from "@/types/productType";
+import type { ProductCategory, ProductsResponse } from "@/types/productType";
 
 export const productService = {
-    async getProducts(limit = 10, skip = 0): Promise<ProductsResponse> {
-        const response = await apiClient.get<ProductsResponse>("/products", {
-            params: { limit, skip, select: "title,description,price,rating,tags,thumbnail" },
-        })
-        if (response.data) {
-            return response.data
+    async getProducts(limit = 13, skip = 0, category?: string): Promise<ProductsResponse> {
+
+        if (category) {
+            const response = await apiClient.get<ProductsResponse>(`/products/category/${category}`, {
+                params: { limit, skip, select: "title,description,price,rating,tags,thumbnail" },
+            })
+            if (response.data) {
+                return response.data
+            } else {
+                throw new Error("Products not found")
+            }
         } else {
-            throw new Error("Products not found")
+            const response = await apiClient.get<ProductsResponse>("/products", {
+                params: { limit, skip, select: "title,description,price,rating,tags,thumbnail" },
+            })
+            if (response.data) {
+                return response.data
+            } else {
+                throw new Error("Products not found")
+            }
         }
     },
 
@@ -25,9 +36,9 @@ export const productService = {
         return response.data
     },
 
-    async getProductByCategory(category: string): Promise<ProductsResponse> {
+    async searchProducts(query: string): Promise<ProductsResponse> {
         const response = await apiClient.get<ProductsResponse>(`/products/`, {
-            params: { category, select: "title,description,price,rating,tags,thumbnail" },
+            params: { query: query, select: "title,description,price,rating,tags,thumbnail" },
         })
         if (response.data) {
             return response.data
@@ -36,10 +47,8 @@ export const productService = {
         }
     },
 
-    async searchProducts(query: string): Promise<ProductsResponse> {
-        const response = await apiClient.get<ProductsResponse>(`/products/`, {
-            params: { query: query, select: "title,description,price,rating,tags,thumbnail" },
-        })
+    async getCategory(): Promise<ProductCategory[]> {
+        const response = await apiClient.get<ProductCategory[]>(`/products/categories`)
         if (response.data) {
             return response.data
         } else {
