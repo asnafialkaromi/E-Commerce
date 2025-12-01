@@ -5,6 +5,7 @@ import About from "./pages/About";
 import MainLayout from "./components/layouts/MainLayout";
 import Auth from "./pages/Auth";
 import { Toaster } from "sonner";
+import SearchResults from "./pages/SearchResults";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
+          <Route path="search" element={<SearchResults />} />
         </Route>
 
         {/* Admin layout routes */}

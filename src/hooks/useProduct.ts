@@ -17,6 +17,14 @@ export const useProductById = (id: number) => {
     });
 };
 
+export const useSearchProducts = (q: string, limit: number, skip: number) => {
+    return useQuery({
+        queryKey: ['search', q, limit, skip],
+        queryFn: () => productService.searchProducts(q, limit, skip),
+        staleTime: 5 * 60 * 1000,
+    });
+};
+
 export const useCategories = () => {
     return useQuery({
         queryKey: ['category'],

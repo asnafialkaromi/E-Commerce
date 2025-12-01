@@ -8,10 +8,12 @@ import {
   InputGroupInput,
 } from "../ui/input-group";
 import { Badge } from "../ui/badge";
+import { useNavigate } from "react-router";
 
 function NavBar() {
   const [searchFocused, setSearchFocused] = React.useState(false);
   const [search, setSearch] = React.useState("");
+  const navigate = useNavigate();
   const [history, setHistory] = React.useState([
     "Laptop",
     "Shoes",
@@ -53,17 +55,13 @@ function NavBar() {
 
     addHistory(value);
 
-    // TODO: put the actual search logic here (navigate, call API, etc.)
-    // Example: doSearch(value)
-    console.log("Search triggered for:", value);
+    navigate(`/search?q=${encodeURIComponent(value)}&page=1`);
   };
 
-  // onChange no longer modifies history
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
-  // handle Enter key
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();

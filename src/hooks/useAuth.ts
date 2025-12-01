@@ -1,7 +1,6 @@
 import { queryKeys } from "@/lib/queryKeys"
 import { showToast } from "@/lib/toastHelper"
 import { authService } from "@/services/authService"
-import type { User } from "@/types/userType"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { useNavigate } from "react-router"
 
