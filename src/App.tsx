@@ -6,6 +6,7 @@ import MainLayout from "./components/layouts/MainLayout";
 import Auth from "./pages/Auth";
 import { Toaster } from "sonner";
 import SearchResults from "./pages/SearchResults";
+import ProductDetail from "./pages/ProductDetail";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="search" element={<SearchResults />} />
+          <Route path="product/detail/:id" element={<ProductDetail />} />
         </Route>
 
         {/* Admin layout routes */}

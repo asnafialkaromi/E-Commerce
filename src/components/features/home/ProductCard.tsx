@@ -8,8 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { Product } from "@/types/productType";
+import { useNavigate } from "react-router";
 
 export default function ProductCard({ product }: { product: Product }) {
+  const navigate = useNavigate();
+
   return (
     <div className="relative max-w-md text-left rounded-xl bg-gradient-to-r from-neutral-600 to-violet-300 pt-0 shadow-lg">
       <div className="flex h-60 items-center justify-center">
@@ -19,7 +22,12 @@ export default function ProductCard({ product }: { product: Product }) {
           className="h-full w-full object-contain"
         />
       </div>
-      <Card className="border-none">
+      <Card
+        className="border-none"
+        onClick={() => {
+          navigate(`/product/detail/${product.id}`);
+        }}
+      >
         <CardHeader>
           <CardTitle className="line-clamp-1">{product.title}</CardTitle>
           <CardDescription className="flex gap-2 flex-wrap">
