@@ -1,5 +1,5 @@
 import apiClient from "../lib/api/apiClient";
-import type { ProductCategory, ProductsResponse } from "@/types/productType";
+import type { Product, ProductCategory, ProductsResponse } from "@/types/productType";
 
 export const productService = {
     async getProducts(limit = 13, skip = 0, category?: string): Promise<ProductsResponse> {
@@ -25,15 +25,13 @@ export const productService = {
         }
     },
 
-    async getProductById(id: number): Promise<ProductsResponse> {
-        const response = await apiClient.get<ProductsResponse>(`/products/${id}`)
+    async getProductById(id: number): Promise<Product> {
+        const response = await apiClient.get<Product>(`/products/${id}`)
         if (response.data) {
             return response.data
         } else {
             throw new Error("Products not found")
         }
-
-        return response.data
     },
 
     async searchProducts(q: string, limit = 12, skip = 0): Promise<ProductsResponse> {
