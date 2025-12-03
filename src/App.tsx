@@ -7,6 +7,7 @@ import Auth from "./pages/Auth";
 import { Toaster } from "sonner";
 import SearchResults from "./pages/SearchResults";
 import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="search" element={<SearchResults />} />
           <Route path="product/detail/:id" element={<ProductDetail />} />
+          <Route path="cart/:id" element={<Cart />} />
         </Route>
 
         {/* Admin layout routes */}
