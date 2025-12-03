@@ -11,6 +11,7 @@ import { Badge } from "../ui/badge";
 import { useNavigate } from "react-router";
 
 function NavBar() {
+  const userId = 1;
   const [searchFocused, setSearchFocused] = React.useState(false);
   const [search, setSearch] = React.useState("");
   const navigate = useNavigate();
@@ -164,7 +165,11 @@ function NavBar() {
       <div className="flex items-center gap-2">
         {/* Cart */}
         <div className="relative w-fit">
-          <Button variant="ghost" size="icon">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate(`/cart/${userId}`)}
+          >
             <ShoppingCart className="size-5" />
             <Badge className="absolute bg-red-500 top-0 right-1 h-4 min-w-1 px-1 text-xs tabular-nums">
               8
