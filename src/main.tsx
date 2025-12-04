@@ -5,11 +5,18 @@ import Providers from "./app/providers.tsx";
 import "./index.css";
 import App from "./App.tsx";
 
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
+import AppInitializer from "./app/AppInitializer.tsx";
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Providers>
       <BrowserRouter>
-        <App />
+        <Provider store={store}>
+          <AppInitializer />
+          <App />
+        </Provider>
       </BrowserRouter>
     </Providers>
   </StrictMode>

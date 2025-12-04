@@ -9,6 +9,10 @@ import {
 } from "../ui/input-group";
 import { Badge } from "../ui/badge";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "@/store/store";
+import { logout } from "@/store/authSlice";
+import { showToast } from "@/lib/toastHelper";
 
 function NavBar() {
   const userId = 1;
@@ -69,6 +73,11 @@ function NavBar() {
       performSearch();
     }
   };
+
+  const dispatch = useDispatch();
+  const { user, isAuthenticated } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   return (
     <nav className="w-full flex sticky top-0 items-center justify-between px-6 py-3 bg-white shadow-sm z-40">
@@ -163,50 +172,65 @@ function NavBar() {
 
       {/* Right Section */}
       <div className="flex items-center gap-2">
-        {/* Cart */}
-        <div className="relative w-fit">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => navigate(`/cart/${userId}`)}
-          >
-            <ShoppingCart className="size-5" />
-            <Badge className="absolute bg-red-500 top-0 right-1 h-4 min-w-1 px-1 text-xs tabular-nums">
-              8
-            </Badge>
-          </Button>
-        </div>
-
-        {/* Notification Popover */}
-        <Popover>
-          <PopoverTrigger asChild>
-            {/* Button with Badge */}
+        {isAuthenticated ? (
+          <>
+            {/* Cart */}
             <div className="relative w-fit">
-              <Button variant="ghost" size="icon">
-                <Bell className="size-5" />
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => navigate(`/cart`)}
+              >
+                <ShoppingCart className="size-5" />
                 <Badge className="absolute bg-red-500 top-0 right-1 h-4 min-w-1 px-1 text-xs tabular-nums">
                   8
                 </Badge>
               </Button>
             </div>
-          </PopoverTrigger>
 
-          <PopoverContent className="w-64 p-0 shadow-lg">
-            <div className="p-3 font-semibold border-b">Notifications</div>
-            <div className="max-h-60 overflow-auto">
-              {notifications.map((n) => (
-                <div
-                  key={n.id}
-                  className="px-3 py-2 hover:bg-gray-100 text-sm border-b last:border-none"
-                >
-                  {n.title}
+            {/* Notification Popover */}
+            <Popover>
+              <PopoverTrigger asChild>
+                {/* Button with Badge */}
+                <div className="relative w-fit">
+                  <Button variant="ghost" size="icon">
+                    <Bell className="size-5" />
+                    <Badge className="absolute bg-red-500 top-0 right-1 h-4 min-w-1 px-1 text-xs tabular-nums">
+                      8
+                    </Badge>
+                  </Button>
                 </div>
-              ))}
-            </div>
-          </PopoverContent>
-        </Popover>
+              </PopoverTrigger>
 
-        <Button>Login</Button>
+              <PopoverContent className="w-64 p-0 shadow-lg">
+                <div className="p-3 font-semibold border-b">Notifications</div>
+                <div className="max-h-60 overflow-auto">
+                  {notifications.map((n) => (
+                    <div
+                      key={n.id}
+                      className="px-3 py-2 hover:bg-gray-100 text-sm border-b last:border-none"
+                    >
+                      {n.title}
+                    </div>
+                  ))}
+                </div>
+              </PopoverContent>
+            </Popover>
+
+            <Button
+              variant="destructive"
+              onClick={() => {
+                dispatch(logout()),
+                  navigate("/"),
+                  showToast("success", "Logout successful!");
+              }}
+            >
+              Logout
+            </Button>
+          </>
+        ) : (
+          <Button onClick={() => navigate("/login")}>Login</Button>
+        )}
       </div>
     </nav>
   );
