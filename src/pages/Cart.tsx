@@ -7,8 +7,7 @@ import { ShoppingBag } from "lucide-react";
 import { Link } from "react-router";
 
 export default function Cart() {
-  const userId = 33;
-  const { data: cart, isLoading } = useCart(userId);
+  const { data: cart, isLoading } = useCart();
 
   // Mock remove function (nanti hubungkan dengan mutation)
   const handleRemoveItem = (id: number) => {
@@ -30,24 +29,7 @@ export default function Cart() {
           Looks like you haven't added anything yet.
         </p>
         <Button asChild className="mt-4 rounded-full px-8">
-          <Link to="/products">Start Shopping</Link>
-        </Button>
-      </div>
-    );
-  }
-
-  if (!isLoading && (!cart || cart.products.length === 0)) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4 text-center">
-        <div className="bg-gray-100 p-6 rounded-full">
-          <ShoppingBag size={48} className="text-gray-400" />
-        </div>
-        <h2 className="text-2xl font-semibold">Your cart is empty</h2>
-        <p className="text-muted-foreground">
-          Looks like you haven't added anything yet.
-        </p>
-        <Button asChild className="mt-4 rounded-full px-8">
-          <Link to="/products">Start Shopping</Link>
+          <Link to="/">Start Shopping</Link>
         </Button>
       </div>
     );

@@ -20,6 +20,7 @@ export default function Auth() {
               <TabsTrigger value="register">Register</TabsTrigger>
             </TabsList>
 
+            {/* Login Form */}
             <TabsContent value="login" className="mt-4">
               <Alert className="text-left mb-4 border-none bg-sky-600/10 text-sky-600 dark:bg-sky-400/10 dark:text-sky-400">
                 <CircleAlertIcon />
@@ -39,6 +40,7 @@ export default function Auth() {
               <LoginForm />
             </TabsContent>
 
+            {/* Register Form */}
             <TabsContent value="register" className="mt-4">
               <Alert className="text-left mb-4 border-none bg-sky-600/10 text-sky-600 dark:bg-sky-400/10 dark:text-sky-400">
                 <CircleAlertIcon />

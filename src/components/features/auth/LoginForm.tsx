@@ -16,6 +16,9 @@ import { showToast } from "@/lib/toastHelper";
 import { Spinner } from "../../ui/spinner";
 import { useNavigate } from "react-router";
 import { authService } from "@/services/authService";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "@/store/authSlice";
+import type { AppDispatch } from "@/store/store";
 
 export default function Login() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -30,13 +33,14 @@ export default function Login() {
     },
   });
 
+  const dispatch = useDispatch<AppDispatch>();
+
   async function onSubmit(values: LoginValues) {
     try {
       setIsLoading(true);
-      const res = await authService.login(values);
 
-      showToast("success", "Login successful!");
-
+      const user = await authService.login(values);
+      dispatch(loginSuccess(user));
       navigate("/");
     } catch (error: any) {
       showToast(

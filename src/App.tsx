@@ -11,7 +11,7 @@ import Cart from "./pages/Cart";
 
 function App() {
   return (
-    <div>
+    <>
       <Toaster />
       <Routes>
         {/* Without layout routes */}
@@ -25,7 +25,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="search" element={<SearchResults />} />
           <Route path="product/detail/:id" element={<ProductDetail />} />
-          <Route path="cart/:id" element={<Cart />} />
+          <Route path="cart" element={<Cart />} />
         </Route>
 
         {/* Admin layout routes */}
@@ -35,7 +35,7 @@ function App() {
       </Route> */}
         <Route path="/auth" element={<Auth />} />
       </Routes>
-    </div>
+    </>
   );
 }
 
