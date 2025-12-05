@@ -1,13 +1,13 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { loadUserFromStorage } from "@/store/authSlice";
+import { useAppDispatch } from "@/store/hooks";
 
 export default function AppInitializer() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   React.useEffect(() => {
     dispatch(loadUserFromStorage());
-  }, []);
+  }, [dispatch]);
 
   return null;
 }

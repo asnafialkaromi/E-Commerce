@@ -1,6 +1,6 @@
 import axios from "axios";
 import { store } from "@/store/store";
-import { loginSuccess, logout } from "@/store/authSlice";
+import { setUser, clearUser } from "@/store/authSlice";
 
 const API_BASE_URL = 'https://dummyjson.com';
 
@@ -78,7 +78,7 @@ apiClient.interceptors.response.use(
             const newData = refreshResponse.data;
 
             // Update Redux with new tokens
-            store.dispatch(loginSuccess(newData));
+            store.dispatch(setUser(newData));
 
             processQueue(null, newData.accessToken);
             isRefreshing = false;
@@ -90,7 +90,7 @@ apiClient.interceptors.response.use(
             processQueue(err, null);
             isRefreshing = false;
 
-            store.dispatch(logout());
+            store.dispatch(clearUser());
 
             return Promise.reject(err);
         }

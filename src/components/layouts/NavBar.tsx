@@ -9,16 +9,17 @@ import {
 } from "../ui/input-group";
 import { Badge } from "../ui/badge";
 import { useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "@/store/store";
-import { logout } from "@/store/authSlice";
-import { showToast } from "@/lib/toastHelper";
+import { useAppSelector } from "@/store/hooks";
+import { clearUser, selectIsAuthenticated } from "@/store/authSlice";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "@/store/store";
 
 function NavBar() {
-  const userId = 1;
   const [searchFocused, setSearchFocused] = React.useState(false);
   const [search, setSearch] = React.useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
   const [history, setHistory] = React.useState([
     "Laptop",
     "Shoes",
@@ -74,10 +75,7 @@ function NavBar() {
     }
   };
 
-  const dispatch = useDispatch();
-  const { user, isAuthenticated } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
   return (
     <nav className="w-full flex sticky top-0 items-center justify-between px-6 py-3 bg-white shadow-sm z-40">
@@ -220,9 +218,8 @@ function NavBar() {
             <Button
               variant="destructive"
               onClick={() => {
-                dispatch(logout()),
-                  navigate("/"),
-                  showToast("success", "Logout successful!");
+                dispatch(clearUser());
+                navigate("/login");
               }}
             >
               Logout
