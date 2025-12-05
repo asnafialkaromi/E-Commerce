@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import SearchResults from "./pages/SearchResults";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
+import Error from "./pages/Error";
 
 function App() {
   return (
@@ -16,11 +17,13 @@ function App() {
       <Routes>
         {/* Without layout routes */}
         <Route path="/login" element={<Auth />} />
+        <Route path="/auth" element={<Auth />} />
 
         {/* With layout routes */}
         {/* Public / Main layout */}
         <Route element={<MainLayout />}>
           <Route index element={<Home />} />
+          <Route path="*" element={<Error />} />
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="search" element={<SearchResults />} />
@@ -33,7 +36,6 @@ function App() {
         <Route index element={<AdminDashboard />} />
         <Route path="dashboard" element={<AdminDashboard />} />
       </Route> */}
-        <Route path="/auth" element={<Auth />} />
       </Routes>
     </>
   );
