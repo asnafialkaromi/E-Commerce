@@ -17,7 +17,7 @@ import { Spinner } from "../../ui/spinner";
 import { useNavigate } from "react-router";
 import { authService } from "@/services/authService";
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "@/store/authSlice";
+import { setUser } from "@/store/authSlice";
 import type { AppDispatch } from "@/store/store";
 
 export default function Login() {
@@ -40,7 +40,7 @@ export default function Login() {
       setIsLoading(true);
 
       const user = await authService.login(values);
-      dispatch(loginSuccess(user));
+      dispatch(setUser(user));
       navigate("/");
     } catch (error: any) {
       showToast(

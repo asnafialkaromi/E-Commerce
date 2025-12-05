@@ -18,7 +18,7 @@ export default function Cart() {
     console.log("update qty", id, qty);
   };
 
-  if (!isLoading && (!cart || cart.products.length === 0)) {
+  if (!isLoading && !cart) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-4 text-center">
         <div className="bg-gray-100 p-6 rounded-full">
@@ -48,7 +48,7 @@ export default function Cart() {
             <CartSkeleton />
           ) : (
             <div className="divide-y divide-gray-100 border-t border-b border-gray-100">
-              {cart?.products.map((item) => (
+              {cart?.products?.map((item) => (
                 <CartItem
                   key={item.id}
                   item={item}

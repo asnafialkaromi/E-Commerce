@@ -50,7 +50,7 @@ export default function CartSummary({
           <span className="text-base font-semibold">Total</span>
           <div className="text-right">
             <span className="block text-2xl font-bold tracking-tight">
-              ${discountedTotal.toFixed(2)}
+              ${discountedTotal?.toFixed(2)}
             </span>
             {savings > 0 && (
               <span className="text-xs text-green-600 font-medium">

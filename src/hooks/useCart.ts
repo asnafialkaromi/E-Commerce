@@ -5,15 +5,14 @@ import type { RootState } from "@/store/store";
 
 export const useCart = () => {
 
-    const user = useSelector((state: RootState) => state.auth.user);
+    const userId = useSelector((state: RootState) => state.auth.user?.id);
 
-    console.log(user);
-    console.log("User ID:", user?.id);
+    console.log("User ID:", userId);
 
     return useQuery({
-        queryKey: ["cart", user?.id],
-        queryFn: () => cartService.getCartByUser(user!.id),
-        enabled: !!user?.id,
+        queryKey: ["cart", userId],
+        queryFn: () => cartService.getCartByUser(userId as number),
+        enabled: !!userId,
         staleTime: 1000 * 60 * 5,
     });
 };
