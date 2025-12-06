@@ -1,10 +1,21 @@
 import type { Product } from "@/types/productType";
 import { motion } from "framer-motion";
 import ProductCard from "./ProductCard";
+import ProductCardSkeleton from "./ProductCardSkeleton";
 
-export default function ProductGrid({ products }: { products: Product[] }) {
+export default function ProductGrid({
+  products,
+  isFetching,
+  isError,
+  error,
+}: {
+  products: Product[];
+  isFetching: boolean;
+  isError: boolean;
+  error: Error | null;
+}) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
       {products.map((product) => (
         <motion.div
           key={product.id}
@@ -12,9 +23,27 @@ export default function ProductGrid({ products }: { products: Product[] }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
         >
-          <ProductCard product={product} />
+          {isFetching ? (
+            <ProductCardSkeleton />
+          ) : (
+            <ProductCard product={product} />
+          )}
         </motion.div>
       ))}
+
+      {/* No products found */}
+      {products.length === 0 && !isFetching && (
+        <div className="text-center text-muted-foreground">
+          No products found
+        </div>
+      )}
+
+      {/* Error */}
+      {isError && (
+        <div className="text-center text-muted-foreground">
+          {error?.message}
+        </div>
+      )}
     </div>
   );
 }

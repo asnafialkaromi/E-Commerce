@@ -43,3 +43,14 @@ export const getPaginationRange = (page: number, totalPages: number) => {
 
   return rangeWithDots;
 };
+
+export const toUsd = (amount: number) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(amount);
+};
+
+export const toCapitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};

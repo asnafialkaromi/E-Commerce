@@ -6,7 +6,7 @@ export const productService = {
 
         if (category) {
             const response = await apiClient.get<ProductsResponse>(`/products/category/${category}`, {
-                params: { limit, skip, select: "title,description,price,rating,tags,thumbnail" },
+                params: { limit, skip, select: "title,category,price,rating,thumbnail" },
             })
             if (response.data) {
                 return response.data
@@ -15,7 +15,7 @@ export const productService = {
             }
         } else {
             const response = await apiClient.get<ProductsResponse>("/products", {
-                params: { limit, skip, select: "title,description,price,rating,tags,thumbnail" },
+                params: { limit, skip, select: "title,category,price,rating,tags,thumbnail" },
             })
             if (response.data) {
                 return response.data

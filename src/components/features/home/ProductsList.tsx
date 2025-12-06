@@ -9,7 +9,7 @@ export default function ProductList() {
   const [page, setPage] = React.useState(0);
   const [category, setCategory] = React.useState("");
 
-  const limit = 12;
+  const limit = 15;
   const skip = page * limit;
 
   const { data: categories } = useCategories();
@@ -25,7 +25,7 @@ export default function ProductList() {
     <div className="space-y-8">
       <div className="space-y-10">
         {/* Header */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center flex-col sm:flex-row gap-4">
           <h2 className="text-3xl font-bold">Products</h2>
           <ProductFilters
             categories={categories || []}
@@ -38,27 +38,13 @@ export default function ProductList() {
           />
         </div>
 
-        {/* Products */}
-
-        {isLoading ? (
-          <ProductSkeleton />
-        ) : (
-          <ProductGrid products={data?.products || []} />
-        )}
-
-        {/* No products found */}
-        {data?.products.length === 0 && !isLoading && (
-          <div className="text-center text-muted-foreground">
-            No products found
-          </div>
-        )}
-
-        {/* Error */}
-        {isError && (
-          <div className="text-center text-muted-foreground">
-            {error?.message}
-          </div>
-        )}
+        {/* Products List*/}
+        <ProductGrid
+          products={data?.products || []}
+          isFetching={isFetching}
+          isError={isError}
+          error={error}
+        />
 
         {/* Pagination */}
         <PagePagination

@@ -1,10 +1,13 @@
 import { productService } from "@/services/productService";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
+
+
 
 export const useProducts = (limit: number, skip: number, category?: string) => {
     return useQuery({
         queryKey: ['products', limit, skip, category],
         queryFn: () => productService.getProducts(limit, skip, category),
+        placeholderData: keepPreviousData,
         staleTime: 5 * 60 * 1000,
     });
 };
