@@ -1,7 +1,7 @@
 import { Skeleton } from "../../ui/skeleton";
 import { Card, CardContent, CardFooter, CardHeader } from "../../ui/card";
 
-export default function ProductSkeleton() {
+export default function ProductCardSkeleton() {
   return (
     <Card className="max-w-sm h-full overflow-hidden">
       {/* Header with Image Skeleton */}

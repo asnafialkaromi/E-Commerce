@@ -39,7 +39,7 @@ export default function SearchResults() {
   const skip = page * limit;
 
   // Fetch products
-  const { data, isLoading, error, isError } = useSearchProducts(
+  const { data, isLoading, isFetching, error, isError } = useSearchProducts(
     query,
     limit,
     skip
@@ -306,7 +306,12 @@ export default function SearchResults() {
             )}
           </div>
         ) : (
-          <ProductGrid products={filteredProducts} />
+          <ProductGrid
+            products={filteredProducts}
+            isFetching={isFetching}
+            isError={isError}
+            error={error}
+          />
         )}
       </div>
 
