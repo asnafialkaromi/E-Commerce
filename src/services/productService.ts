@@ -36,7 +36,7 @@ export const productService = {
 
     async searchProducts(q: string, limit = 12, skip = 0): Promise<ProductsResponse> {
         const response = await apiClient.get<ProductsResponse>(`/products/search`, {
-            params: { q: q, limit, skip, select: "title,description,price,rating,tags,thumbnail" },
+            params: { q: q, limit, skip, select: "title,category,price,rating,tags,thumbnail" },
         })
         if (response.data) {
             return response.data

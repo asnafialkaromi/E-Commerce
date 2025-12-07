@@ -1,7 +1,5 @@
 import { productService } from "@/services/productService";
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
-
-
+import { useQuery, keepPreviousData, useInfiniteQuery } from "@tanstack/react-query";
 
 export const useProducts = (limit: number, skip: number, category?: string) => {
     return useQuery({
@@ -33,5 +31,25 @@ export const useCategories = () => {
         queryKey: ['category'],
         queryFn: () => productService.getCategory(),
         staleTime: 60 * 60 * 1000,
+    });
+};
+
+export const useInfiniteProducts = (limit: number, category?: string) => {
+    return useInfiniteQuery({
+        queryKey: ["products-infinite", limit, category],
+
+        initialPageParam: 0,
+
+        queryFn: ({ pageParam }) =>
+            productService.getProducts(limit, pageParam, category),
+
+        getNextPageParam: (lastPage, pages) => {
+            const total = lastPage.total;
+            const loaded = pages.length * limit;
+
+            return loaded < total ? loaded : undefined;
+        },
+
+        staleTime: 5 * 60 * 1000,
     });
 };
