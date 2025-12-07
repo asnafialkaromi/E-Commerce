@@ -1,6 +1,5 @@
 import React from "react";
 import { useCategories, useProducts } from "@/hooks/useProduct";
-import ProductSkeleton from "./ProductSkeleton";
 import ProductFilters from "./ProductFilters";
 import ProductGrid from "./ProductGrid";
 import PagePagination from "@/components/shared/PagePagination";
@@ -41,6 +40,7 @@ export default function ProductList() {
         {/* Products List*/}
         <ProductGrid
           products={data?.products || []}
+          isLoading={isLoading}
           isFetching={isFetching}
           isError={isError}
           error={error}

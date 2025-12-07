@@ -2,8 +2,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import ProductList from "@/components/features/home/ProductsList";
@@ -11,6 +9,7 @@ import Banner1 from "@/assets/images/Banner1.jpg";
 import Banner2 from "@/assets/images/Banner2.png";
 import Banner3 from "@/assets/images/Banner3.jpg";
 import { cn } from "@/lib/utils";
+import ProductInfinityList from "@/components/features/home/ProductInfinityList";
 
 const banners = [Banner1, Banner2, Banner3];
 
@@ -50,8 +49,12 @@ export default function Home() {
           ))}
         </CarouselContent>
       </Carousel>
+
       {/* Product List */}
       <ProductList />
+
+      {/* Product Infinity List */}
+      <ProductInfinityList />
     </div>
   );
 }
