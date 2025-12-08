@@ -52,5 +52,20 @@ export const toUsd = (amount: number) => {
 };
 
 export const toCapitalize = (str: string) => {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  return str
+    .split("-")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
+export const getCategories = (products: any[]): string[] => {
+  const unique = new Set<string>();
+
+  products.forEach((p) => {
+    if (p?.category) {
+      unique.add(p.category.trim().toLowerCase());
+    }
+  });
+
+  return Array.from(unique).sort();
 };

@@ -8,7 +8,7 @@ import {
   InputGroupInput,
 } from "../ui/input-group";
 import { Badge } from "../ui/badge";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useAppSelector } from "@/store/hooks";
 import { clearUser, selectIsAuthenticated } from "@/store/authSlice";
 import { useDispatch } from "react-redux";
@@ -80,7 +80,9 @@ function NavBar() {
   return (
     <nav className="w-full flex sticky top-0 items-center justify-between px-6 py-3 bg-white shadow-sm z-40">
       {/* Logo */}
-      <div className="text-xl font-bold">MyStore</div>
+      <Link to="/" className="text-xl font-bold">
+        MyStore
+      </Link>
 
       {/* Search Bar */}
       <div className="flex-1 mx-6 max-w-xl relative">
