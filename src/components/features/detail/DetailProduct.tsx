@@ -290,30 +290,7 @@ export default function DetailProduct({
         </div>
       </section>
 
-      <Separator className="my-16" />
-
-      {/* RELATED PRODUCTS (Placeholder Implemented) */}
-      <section>
-        <h2 className="text-2xl font-bold mb-8 tracking-tight">
-          You might also like
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {[1, 2, 3, 4].map((item) => (
-            <div key={item} className="group cursor-pointer space-y-3">
-              <div className="aspect-[4/5] bg-gray-100 rounded-xl overflow-hidden relative">
-                <div className="absolute inset-0 bg-gray-200 animate-pulse" />{" "}
-                {/* Placeholder Image */}
-              </div>
-              <div>
-                <h3 className="font-medium text-gray-900 group-hover:text-primary transition-colors">
-                  Related Product {item}
-                </h3>
-                <p className="text-sm text-muted-foreground">$99.00</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <Separator className="mt-16" />
     </div>
   );
 }
