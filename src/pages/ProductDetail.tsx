@@ -1,6 +1,7 @@
 import { useProductById } from "@/hooks/useProduct";
 import { useParams } from "react-router";
 import DetailProduct from "@/components/features/detail/DetailProduct";
+import ProductRelated from "@/components/features/detail/ProductRelated";
 
 export default function ProductDetail() {
   const params = useParams();
@@ -10,5 +11,10 @@ export default function ProductDetail() {
 
   if (isError) return <div>{error.message}</div>;
 
-  return <DetailProduct product={data} isLoading={isLoading} />;
+  return (
+    <div>
+      <DetailProduct product={data} isLoading={isLoading} />;
+      <ProductRelated category={data?.category || ""} />
+    </div>
+  );
 }
